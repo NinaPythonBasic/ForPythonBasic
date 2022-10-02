@@ -23,12 +23,12 @@ def is_prime(num):
             break
     return prime_flag
 
-def filter_numbers(l, param):
+def filter_numbers(nums, param):
     if (param == ODD):
-        return list(filter(lambda x: x % 2 != 0, l))
+        return list(filter(lambda x: x % 2 != 0, nums))
     elif (param == EVEN):
-        return list(filter(lambda x: x % 2 == 0, l))
+        return list(filter(lambda x: x % 2 == 0, nums))
     elif (param == PRIME):
-        return list(filter(is_prime, l))
+        return list(filter(is_prime, nums))
     print("Unknown param")
 
