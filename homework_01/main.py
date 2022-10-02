@@ -29,6 +29,6 @@ def filter_numbers(l, param):
     elif (param == EVEN):
         return list(filter(lambda x: x % 2 == 0, l))
     elif (param == PRIME):
-        return list(filter(lambda x: is_prime(x), l))
+        return list(filter(is_prime, l))
     print("Unknown param")
 
