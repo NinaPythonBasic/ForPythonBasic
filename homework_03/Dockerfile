@@ -1,1 +1,19 @@
-FROM python:3.9-buster
+FROM python:3.10.8-bullseye
+
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /var/app
+
+RUN pip install --upgrade pip && \
+    pip install pipenv
+
+# Tell pipenv to create venv in the current directory
+ENV PIPENV_VENV_IN_PROJECT=1
+
+COPY Pipfile Pipfile.lock ./
+
+RUN pipenv sync
+
+COPY . .
+
+CMD /var/app/.venv/bin/uvicorn main:app --host 0.0.0.0
