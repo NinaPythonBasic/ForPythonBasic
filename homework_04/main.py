@@ -12,15 +12,46 @@
   (используйте полученные из запроса данные, передайте их в функцию для добавления в БД)
 - закрытие соединения с БД
 """
+import asyncio
+
+from sqlalchemy import select
+from sqlalchemy.engine import Result
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    create_async_engine,
+)
+from sqlalchemy.orm import sessionmaker
+
+from models import (
+    Base,
+    User,
+    Post,
+    DB_ASYNC_URL,
+    DB_ECHO
+)
+
+async_engine: AsyncEngine = create_async_engine(
+    url=DB_ASYNC_URL,
+    echo=DB_ECHO,
+)
+
+async_session = sessionmaker(
+    async_engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+    # expire_on_commit=True,
+)
+
+
+async def create_tables():
+    async with async_engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)
 
 
 async def async_main():
-    pass
-
-
-def main():
-    pass
-
+    await create_tables()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(async_main())
