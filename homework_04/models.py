@@ -57,8 +57,8 @@ Session = scoped_session(session_factory)
 
 class User(Base):
     name = Column(String(50))
-    username = Column(String(20), unique=True)
-    email = Column(String(20), unique=True)
+    username = Column(String(30), unique=True)
+    email = Column(String(40), unique=True)
 
     # orm
     posts = relationship("Post", back_populates="user", uselist=True)
