@@ -129,8 +129,8 @@ async def create_posts(
 
 
 async def async_main():
-    users_data: List[dict]
-    posts_data: List[dict]
+    users_data: list[dict]
+    posts_data: list[dict]
 
     await create_tables()
 
