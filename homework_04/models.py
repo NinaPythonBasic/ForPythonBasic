@@ -30,7 +30,7 @@ from sqlalchemy.orm import (
 
 DB_ASYNC_URL = "postgresql+asyncpg://postgres:password@localhost/postgres"
 DB_ECHO = True
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or DB_ASYNC_URL
+PG_CONN_URI = DB_ASYNC_URL
 
 
 class Base:
@@ -67,8 +67,8 @@ class User(Base):
 
 class Post(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    title = Column(String(200), unique=False, nullable=False)
-    body = Column(Text, nullable=False, default="")
+    title = Column(String(200), unique=False, nullable=False, default='', server_default='')
+    body = Column(Text, nullable=False, default='', server_default='')
 
     # orm
     user = relationship("User", back_populates="posts", uselist=False)
