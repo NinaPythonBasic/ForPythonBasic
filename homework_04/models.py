@@ -28,11 +28,9 @@ from sqlalchemy.orm import (
     declared_attr,
 )
 
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://postgres:password@localhost/postgres"
-
-DB_URL = "postgresql+pg8000://username:passwd!@localhost/blog"
-DB_ASYNC_URL = "postgresql+asyncpg://username:passwd!@localhost/blog"
+DB_ASYNC_URL = "postgresql+asyncpg://postgres:password@localhost/postgres"
 DB_ECHO = True
+PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or DB_ASYNC_URL
 
 
 class Base:
@@ -48,7 +46,7 @@ class Base:
         return str(self)
 
 
-engine = create_engine(url=DB_URL, echo=DB_ECHO)
+engine = create_engine(url=DB_ASYNC_URL, echo=DB_ECHO)
 Base = declarative_base(bind=engine, cls=Base)
 
 session_factory = sessionmaker(bind=engine)

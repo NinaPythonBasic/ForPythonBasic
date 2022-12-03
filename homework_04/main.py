@@ -21,18 +21,9 @@ from sqlalchemy.ext.asyncio import (
 )
 from sqlalchemy.orm import sessionmaker
 
-from jsonplaceholder_requests import (
-    fetch_users_data,
-    fetch_posts_data
-)
+from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
 
-from models import (
-    Base,
-    User,
-    Post,
-    DB_ASYNC_URL,
-    DB_ECHO
-)
+from models import Base, User, Post, DB_ASYNC_URL, DB_ECHO
 
 async_engine: AsyncEngine = create_async_engine(
     url=DB_ASYNC_URL,
@@ -65,10 +56,7 @@ async def create_posts_for_user(
     user: User,
     *posts_titles: str,
 ) -> list[Post]:
-    posts = [
-        Post(title=post_title, user=user)
-        for post_title in posts_titles
-    ]
+    posts = [Post(title=post_title, user=user) for post_title in posts_titles]
     session.add_all(posts)
     await session.commit()
     print("created posts", posts)
@@ -85,7 +73,7 @@ async def create_users(
             id=user_data["id"],
             name=user_data["name"],
             username=user_data["username"],
-            email=user_data["email"]
+            email=user_data["email"],
         )
         for user_data in users_data
     ]
@@ -116,7 +104,7 @@ async def create_posts(
             user_id=1,
             title=post_data["title"],
             body=post_data["body"],
-            user=user
+            user=user,
         )
         posts.append(post)
         session.add(post)
@@ -142,6 +130,7 @@ async def async_main():
     async with async_session() as session:
         await create_users(session, users_data)
         await create_posts(session, posts_data)
+
 
 if __name__ == "__main__":
     asyncio.run(async_main())
