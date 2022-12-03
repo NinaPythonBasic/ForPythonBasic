@@ -25,6 +25,8 @@ from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
 
 from models import Base, User, Post, DB_ASYNC_URL, DB_ECHO
 
+from typing import Union
+
 async_engine: AsyncEngine = create_async_engine(
     url=DB_ASYNC_URL,
     echo=DB_ECHO,
@@ -84,8 +86,8 @@ async def create_users(
     return users
 
 
-async def get_user_by_id(session: AsyncSession, user_id: int) -> User | None:
-    user: User | None = await session.get(User, user_id)
+async def get_user_by_id(session: AsyncSession, user_id: int) -> Union[User, None]:
+    user = await session.get(User, user_id)
 
     return user
 
@@ -96,7 +98,7 @@ async def create_posts(
 ) -> list[User]:
     posts = []
     for post_data in posts_data:
-        user: User | None = await get_user_by_id(session, post_data["userId"])
+        user: Union[User, None] = await get_user_by_id(session, post_data["userId"])
         if user is None:
             break
         post = Post(
