@@ -30,7 +30,7 @@ from sqlalchemy.orm import (
 
 DB_ASYNC_URL = "postgresql+asyncpg://postgres:password@localhost/postgres"
 DB_ECHO = True
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or DB_ASYNC_URL
+PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") #or DB_ASYNC_URL
 
 
 class Base:
