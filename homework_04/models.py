@@ -67,7 +67,7 @@ class User(Base):
 
 class Post(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    title = Column(String(200), unique=False, nullable=False, default='', server_default='')
+    title = Column(String(300), unique=False, nullable=False, default='', server_default='')
     body = Column(Text, nullable=False, default='', server_default='')
 
     # orm
