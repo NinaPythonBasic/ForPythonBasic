@@ -23,12 +23,12 @@ from sqlalchemy.orm import sessionmaker
 
 from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
 
-from models import Base, User, Post, DB_ASYNC_URL, DB_ECHO
+from models import Base, User, Post, PG_CONN_URI, DB_ECHO
 
 from typing import Union
 
 async_engine: AsyncEngine = create_async_engine(
-    url=DB_ASYNC_URL,
+    url=PG_CONN_URI,
     echo=DB_ECHO,
 )
 
