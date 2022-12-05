@@ -27,6 +27,7 @@ from models import Base, User, Post, Session, engine
 
 from typing import Union
 
+
 async def create_tables():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
@@ -69,7 +70,6 @@ async def create_users(
     ]
     session.add_all(users)
     await session.commit()
-    print("created users", users)
 
     return users
 
@@ -101,7 +101,6 @@ async def create_posts(
 
     session.add_all(posts)
     await session.commit()
-    print("created posts", posts)
 
     return posts
 

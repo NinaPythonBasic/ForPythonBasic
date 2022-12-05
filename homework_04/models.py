@@ -11,7 +11,6 @@
 import os
 
 from sqlalchemy import (
-    create_engine,
     Column,
     Integer,
     String,
@@ -77,8 +76,14 @@ class User(Base):
 
 class Post(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    title = Column(String(300), unique=False, nullable=False, default='', server_default='')
-    body = Column(Text, nullable=False, default='', server_default='')
+    title = Column(
+        String(300),
+        unique=False,
+        nullable=False,
+        default="",
+        server_default=""
+    )
+    body = Column(Text, nullable=False, default="", server_default="")
 
     # orm
     user = relationship("User", back_populates="posts", uselist=False)
