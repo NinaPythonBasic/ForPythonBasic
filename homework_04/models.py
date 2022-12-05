@@ -21,10 +21,14 @@ from sqlalchemy import (
 
 from sqlalchemy.orm import relationship
 
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    create_async_engine,
+)
 from sqlalchemy.orm import (
-    declarative_base,
     sessionmaker,
-    scoped_session,
+    declarative_base,
     declared_attr,
 )
 
@@ -46,11 +50,17 @@ class Base:
         return str(self)
 
 
-engine = create_engine(url=PG_CONN_URI, echo=DB_ECHO)
+engine: AsyncEngine = create_async_engine(
+    url=PG_CONN_URI,
+    echo=DB_ECHO,
+)
 Base = declarative_base(bind=engine, cls=Base)
 
-session_factory = sessionmaker(bind=engine)
-Session = scoped_session(session_factory)
+Session = sessionmaker(
+    engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+)
 
 
 class User(Base):

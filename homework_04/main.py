@@ -23,24 +23,12 @@ from sqlalchemy.orm import sessionmaker
 
 from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
 
-from models import Base, User, Post, PG_CONN_URI, DB_ECHO
+from models import Base, User, Post, Session, engine
 
 from typing import Union
 
-async_engine: AsyncEngine = create_async_engine(
-    url=PG_CONN_URI,
-    echo=DB_ECHO,
-)
-
-async_session = sessionmaker(
-    async_engine,
-    class_=AsyncSession,
-    expire_on_commit=False,
-)
-
-
 async def create_tables():
-    async with async_engine.begin() as conn:
+    async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
@@ -129,7 +117,7 @@ async def async_main():
         fetch_posts_data(),
     )
 
-    async with async_session() as session:
+    async with Session() as session:
         await create_users(session, users_data)
         await create_posts(session, posts_data)
 
