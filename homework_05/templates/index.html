@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Index page
+{% endblock %}
+
+{% block body %}
+  <h2 class="my-4">Index view</h2>
+  <ul class="list-group">
+    {% for elem in ['Position 1', 'Position 2', 'Position 3', 'Position 4'] %}
+      <li>
+        {{ elem }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
