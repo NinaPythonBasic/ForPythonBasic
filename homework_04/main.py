@@ -34,27 +34,6 @@ async def create_tables():
         await conn.run_sync(Base.metadata.create_all)
 
 
-async def create_user(session: AsyncSession, username: str, email: str) -> User:
-    user = User(username=username, email=email)
-    session.add(user)
-    print("user create", user)
-    await session.commit()
-    return user
-
-
-async def create_posts_for_user(
-    session: AsyncSession,
-    user: User,
-    *posts_titles: str,
-) -> list[Post]:
-    posts = [Post(title=post_title, user=user) for post_title in posts_titles]
-    session.add_all(posts)
-    await session.commit()
-    print("created posts", posts)
-
-    return posts
-
-
 async def create_users(
     session: AsyncSession,
     users_data: list[dict],
@@ -86,18 +65,17 @@ async def create_posts(
 ) -> list[User]:
     posts = []
     for post_data in posts_data:
-        user: Union[User, None] = await get_user_by_id(session, post_data["userId"])
-        if user is None:
-            break
+        # Here was a check that user with coming userId exists
+        # user: Union[User, None] = await get_user_by_id(session, post_data["userId"])
+        # if user is None:
+        #     break
         post = Post(
             id=post_data["id"],
-            user_id=1,
+            user_id=post_data["userId"],
             title=post_data["title"],
             body=post_data["body"],
-            user=user,
         )
         posts.append(post)
-        session.add(post)
 
     session.add_all(posts)
     await session.commit()
