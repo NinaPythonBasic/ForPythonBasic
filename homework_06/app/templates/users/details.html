@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  User #{{ user.id }}
+{% endblock %}
+
+{% block body %}
+  <div class="h1 mb-3">User details</div>
+
+  <div><strong>Id:</strong></div>
+  <p>
+    <em>{{ user.id }}</em>
+  </p>
+
+  <div><strong>Username:</strong></div>
+  <p>
+    <em>{{ user.username }}</em>
+  </p>
+
+  <div><strong>Name:</strong></div>
+  <p>
+    <em>{{ user.name }}</em>
+  </p>
+
+  <div><strong>Email:</strong></div>
+  <p>
+    <em>{{ user.email }}</em>
+  </p>
+
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Add user
+{% endblock %}
+
+{% block body %}
+  <div>
+    <div class="h3 mb-3">
+      Create a new user
+    </div>
+    <form method="post">
+      <div class="mb-3">
+        {{ form.hidden_tag() }}
+        {{ form.username.label(class="form-label") }}
+        {{ form.username(size=20, class="form-control") }}
+      </div>
+      <div class="mb-3">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control") }}
+      </div>
+      <div class="mb-3">
+        {{ form.email.label(class="form-label") }}
+        {{ form.email(class="form-control") }}
+      </div>
+      {% if form.errors %}
+        <ul class="alert alert-danger my-3">
+          {% for name, errors in form.errors.items() %}
+            <li>
+              <strong>{{ name }}</strong>
+              <ul>
+                {% for error in errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <button class="btn btn-outline-primary my-2"
+              type="submit">
+        Create
+      </button>
+    </form>
+  </div>
+
+{% endblock %}
