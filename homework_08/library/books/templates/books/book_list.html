@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h3>Список книг</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Номер</th>
+          <th scope="col">Название</th>
+          <th scope="col">Автор</th>
+          <th scope="col">Жанр</th>
+          <th scope="col">Издание</th>
+          <th scope="col">Выдано</th>
+          <th scope="col">Инфо</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for book in object_list %}
+
+                <tr>
+                    <th scope="row">{{book.id}}</th>
+                    <td>{{book.name}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.category.name}}</td>
+                    <td>{{book.publisher}}, {{book.year}}</td>
+                    {% if book.onhand %}
+                        <td>+</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>
+                        <a  href="{% url 'book' pk=book.pk %}">
+                            {% include 'info_icon.html' %}
+                        </a>
+                    </td>
+                </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h3 class="mb-4 ms-5 ps-5">Информация о книге</h3>
+
+    {% include 'detail_block.html' with label='Название' data=object.name %}
+
+    {% include 'detail_block.html' with label='Автор' data=object.author %}
+
+    {% include 'detail_block.html' with label='Жанр' data=object.category.name %}
+
+    {% include 'detail_block.html' with label='Издательство' data=object.publisher %}
+
+    {% include 'detail_block.html' with label='Год издания' data=object.year %}
+
+    {% include 'detail_block.html' with label='Место хранения' data=object.place %}
+
+     {% if object.details != "" %}
+        {% include 'detail_block.html' with label='Примечание' data=object.details %}
+    {% endif %}
+
+    {% if object.onhand  %}
+        {% include 'detail_block.html' with label='Сейчас' data='На руках'%}
+    {% else %}
+         {% include 'detail_block.html' with label='Сейчас' data='В библиотеке'%}
+    {% endif %}
+
+    {% include 'detail_block.html' with label='Номер' data=object.pk %}
+
+{% endblock %}

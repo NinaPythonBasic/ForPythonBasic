@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>Список жанров</h2>
+
+    <table class="table table-striped ">
+      <thead>
+        <tr>
+          <th scope="col">Номер</th>
+          <th scope="col">Название</th>
+          <th scope="col">Инфо</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for category in object_list %}
+                <tr>
+                    <th scope="row">{{category.id}}</th>
+                    <td>{{category.name}}</td>
+                    <td>
+                        <a  href="{% url 'category' pk=category.pk %}">
+                            {% include 'info_icon.html' %}
+                        </a>
+                    </td>
+                </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
