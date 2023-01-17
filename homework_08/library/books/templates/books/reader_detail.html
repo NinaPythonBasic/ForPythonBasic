@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h3 class="mb-4 ms-5 ps-5">Информация о читателе</h3>
+
+    {% include 'detail_block.html' with label='Имя' data=object.name %}
+
+    {% include 'detail_block.html' with label='Адрес' data=object.address %}
+
+    {% include 'detail_block.html' with label='Телефон' data=object.phone %}
+
+    {% include 'detail_block.html' with label='Номер' data=object.pk %}
+
+{% endblock %}

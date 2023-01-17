@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>Список читателей</h2>
+    <table class="table table-striped ">
+      <thead>
+        <tr>
+          <th scope="col">Номер</th>
+          <th scope="col">Имя</th>
+          <th scope="col">Адрес</th>
+          <th scope="col">Телефон</th>
+          <th scope="col">Инфо</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for reader in object_list %}
+
+                <tr>
+                    <th scope="row">{{reader.id}}</th>
+                    <td>{{reader.name}}</td>
+                    <td>{{reader.address}}</td>
+                    <td>{{reader.phone}}</td>
+                    <td>
+                        <a  href="{% url 'reader' pk=reader.pk %}">
+                            {% include 'info_icon.html' %}
+                        </a>
+                    </td>
+                </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
