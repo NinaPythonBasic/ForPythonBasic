@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>Выдача книг</h2>
+
+    <table class="table table-striped ">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Книга</th>
+          <th scope="col">Читатель</th>
+          <th scope="col">Дата выдачи</th>
+          <th scope="col">Дата возврата</th>
+          <th scope="col">Инфо</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for bookonhand in object_list %}
+
+                <tr>
+                    <th scope="row">{{bookonhand.id}}</th>
+                    <td>{{bookonhand.book.name}}</td>
+                    <td>{{bookonhand.reader.name}}</td>
+                    <td>{{bookonhand.issuedate}}</td>
+                    <td>{{bookonhand.returndate|default_if_none:"-"}}</td>
+                    <td>
+                        <a  href="{% url 'bookonhand' pk=bookonhand.pk %}">
+                            {% include 'info_icon.html' %}
+                        </a>
+                    </td>
+                </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
