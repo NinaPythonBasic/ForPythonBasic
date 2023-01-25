@@ -25,4 +25,5 @@ jobs:
         pip install -r "homework_09/library/requirements.txt"
     - name: Run Tests
       run: |
-        python "homework_09/library/manage.py" test
+        cd "homework_09/library"
+        python manage.py test
