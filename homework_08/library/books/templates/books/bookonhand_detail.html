@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h3 class="mb-4 ms-5 ps-5">Книга у читателя</h3>
+
+    <a href="{% url 'book' pk=object.book.pk %}" style="text-decoration: none; color:black;">
+        {% include 'detail_block.html' with label='Название книги' data=object.book.name addicon=True %}
+    </a>
+
+    <a href="{% url 'reader' pk=object.reader.pk %}" style="text-decoration: none; color:black;">
+        {% include 'detail_block.html' with label='Читатель' data=object.reader.name addicon=True %}
+    </a>
+
+    {% include 'detail_block.html' with label='Дата выдачи' data=object.issuedate %}
+
+    {% include 'detail_block.html' with label='Дата возврата' data=object.returndate|default_if_none:"-" %}
+
+    {% if object.details != "" %}
+        {% include 'detail_block.html' with label='Примечание' data=object.details %}
+    {% endif %}
+
+{% endblock %}
